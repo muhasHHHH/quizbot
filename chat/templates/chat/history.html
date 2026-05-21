@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>История сообщений — QuizBot</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', sans-serif; background: #1a1a2e; color: #eee; padding: 24px; }
+        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+        h1 { color: #e2b96f; }
+        a { color: #a98ff3; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        table { width: 100%; border-collapse: collapse; background: #16213e; border-radius: 12px; overflow: hidden; }
+        th { background: #0f3460; padding: 12px 16px; text-align: left; color: #e2b96f; }
+        td { padding: 12px 16px; border-bottom: 1px solid #2a2a5e; font-size: 0.9rem; vertical-align: top; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: #1e1e4e; }
+        .empty { text-align: center; padding: 40px; opacity: 0.5; }
+        .time { font-size: 0.78rem; opacity: 0.6; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📋 История сообщений</h1>
+        <a href="/">← Вернуться в чат</a>
+    </div>
+
+    {% if messages %}
+    <table>
+        <thead>
+            <tr>
+                <th>Пользователь</th>
+                <th>Сообщение</th>
+                <th>Ответ бота</th>
+                <th>Время</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for msg in messages %}
+            <tr>
+                <td>{{ msg.user_name }}</td>
+                <td>{{ msg.user_message }}</td>
+                <td>{{ msg.bot_response }}</td>
+                <td class="time">{{ msg.created_at|date:"d.m.Y H:i" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty">История пуста. Начни диалог с ботом!</div>
+    {% endif %}
+</body>
+</html>
